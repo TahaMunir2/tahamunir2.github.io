@@ -1,42 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const projectItems = document.querySelectorAll('.project-item');
-    const lightbox = document.getElementById('lightbox');
-    const closeButton = document.querySelector('.close-button');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxVideo = document.getElementById('lightbox-video');
+    
+    const hiddenElements = document.querySelectorAll('.project.hidden');
 
-    projectItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const type = item.getAttribute('data-type');
-            const src = item.getAttribute('data-src');
-
-            lightbox.style.display = 'flex';
-
-            if (type === 'image') {
-                lightboxImg.src = src;
-                lightboxImg.style.display = 'block';
-                lightboxVideo.style.display = 'none';
-            } else if (type === 'video') {
-                lightboxVideo.src = src;
-                lightboxVideo.style.display = 'block';
-                lightboxImg.style.display = 'none';
-                lightboxVideo.play();
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // When the element is in view, remove the 'hidden' class
+                entry.target.classList.remove('hidden');
+                // Optional: Stop observing the element once it's visible
+                observer.unobserve(entry.target);
             }
         });
+    }, {
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the element is visible
     });
 
-    const closeLightbox = () => {
-        lightbox.style.display = 'none';
-        // Stop the video from playing in the background
-        lightboxImg.src = ""; 
-        lightboxVideo.src = "";
-    };
-
-    closeButton.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        // Close only if the dark background is clicked, not the content
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
+    hiddenElements.forEach(el => observer.observe(el));
 });
