@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site Under Construction</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f5f5f5;
-      font-family: Arial, sans-serif;
-    }
-    .box {
-      text-align: center;
-      background: white;
-      padding: 2rem 3rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    h1 {
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-      color: #333;
-    }
-    p {
-      color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creative Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="box">
-    <h1>🚧 Website Coming Soon 🚧</h1>
-    <p>This site is under construction.<br>Check back later. <br> No longer hacked lol </p> 
-  </div>
+
+    <header>
+        <h1>My Creative Portfolio</h1>
+        <p>A collection of my work in photography and videography</p>
+    </header>
+
+    <div class="gallery-container">
+        <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=2070">
+            <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=600" alt="A photo of an open book">
+            <div class="overlay"><h3>Project One</h3></div>
+        </div>
+
+        <div class="project-item" data-type="video" data-src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-sea-1164-large.mp4">
+            <img src="https://images.unsplash.com/photo-1502759683299-cdcd6974244f?q=80&w=600" alt="Thumbnail for a video of ocean waves">
+            <div class="overlay"><h3>Project Two</h3></div>
+        </div>
+        
+        <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070">
+            <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=600" alt="A photo of a desk with charts">
+            <div class="overlay"><h3>Project Three</h3></div>
+        </div>
+
+        </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-button">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Full-size project image">
+            <video id="lightbox-video" src="" controls></video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
