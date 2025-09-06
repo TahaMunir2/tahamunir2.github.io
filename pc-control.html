@@ -5,27 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Power Control</title>
     <style>
-        body { background-color: #2c3e50; margin: 0; font-family: sans-serif; }
-        #container {
-            display: none; 
+        body {
+            background-color: #2c3e50;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column; /* Allows content to stack vertically */
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensures it takes full viewport height */
+            color: white;
+        }
+        #container {
+            display: none; /* Hidden by default until password is correct */
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center;
+            gap: 20px; /* Space between buttons */
         }
         .power-button {
-            font-size: 2rem;
-            padding: 25px 50px;
+            font-size: 2.5rem;
+            padding: 40px 80px;
             border-radius: 50%;
-            border: 5px solid #27ae60;
-            background-color: #2ecc71;
+            border: 5px solid #e74c3c; /* Red border */
+            background-color: #c0392b; /* Darker red */
             color: white;
             cursor: pointer;
             outline: none;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 2px 2px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+        }
+        .power-button:hover {
+            background-color: #e74c3c; /* Lighter red on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         }
         .power-button:active {
             transform: scale(0.95);
-            background-color: #27ae60;
+            background-color: #a52d21; /* Even darker red when pressed */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Back to Home Button Style */
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #3498db; /* Blue button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px; /* Space above this button */
+        }
+        .back-button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            transform: translateY(-1px);
+        }
+        .back-button:active {
+            transform: scale(0.98);
+            background-color: #21618c;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -33,6 +79,7 @@
 
     <div id="container">
         <button class="power-button" onclick="turnOnPC()">ON</button>
+        <a href="index.html" class="back-button">Back to Home</a>
     </div>
 
     <script>
