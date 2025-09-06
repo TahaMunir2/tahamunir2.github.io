@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Power Control</title>
+    <style>
+        body { background-color: #2c3e50; margin: 0; font-family: sans-serif; }
+        #container {
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .power-button {
+            font-size: 2rem;
+            padding: 25px 50px;
+            border-radius: 50%;
+            border: 5px solid #27ae60;
+            background-color: #2ecc71;
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .power-button:active {
+            transform: scale(0.95);
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body onload="checkPassword()">
+
+    <div id="container">
+        <button class="power-button" onclick="turnOnPC()">ON</button>
+    </div>
+
+    <script>
+        // --- Attempt Counter ---
+        let attempts = 0;
+        const maxAttempts = 5;
+
+        function checkPassword() {
+            // Check if the user clicked "Cancel"
+            const password = prompt(`Please enter the password (${maxAttempts - attempts} attempts remaining):`, "");
+            if (password === null) {
+                document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Access Canceled</h1>';
+                return; // Stop the script
+            }
+
+            // --- SET YOUR PASSWORD HERE ---
+            if (password === "YourSecretPassword") {
+                document.getElementById("container").style.display = "flex";
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    alert("Too many failed attempts. Access is locked.");
+                    document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Access Locked</h1>';
+                } else {
+                    alert(`Incorrect Password! You have ${maxAttempts - attempts} attempts remaining.`);
+                    checkPassword(); // Prompt again
+                }
+            }
+        }
+
+        function turnOnPC() {
+            // --- Replace with your Adafruit IO details ---
+            const AIO_USERNAME = "YOUR_AIO_USERNAME";
+            const AIO_KEY = "YOUR_AIO_KEY";
+            const FEED_NAME = "pc-power";
+
+            const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`;
+            const data = { "value": "ON" };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-AIO-Key': AIO_KEY
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Power signal sent!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error sending signal.');
+            });
+        }
+    </script>
+</body>
+</html>
