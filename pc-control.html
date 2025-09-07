@@ -74,9 +74,12 @@
           body: JSON.stringify({ password: pw }),
         });
 
-        if (!res.ok) {
-          out.textContent = `Login failed: ${res.status} ${res.statusText}\n` + (await res.text());
-          return;
+       if (res.ok) {
+          console.log("✅ Password correct, login success.");
+          out.textContent = "✅ Password correct, logged in.";
+        } else {
+          console.log("❌ Wrong password. Status:", res.status);
+          out.textContent = "❌ Wrong password.";
         }
 
         out.textContent = "✅ Logged in. Sending power signal...";
