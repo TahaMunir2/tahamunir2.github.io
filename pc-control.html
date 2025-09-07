@@ -10,14 +10,12 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: white;
         }
         #container {
-            display: none;
+            display: flex; /* The container is now always visible */
             flex-direction: column;
             align-items: center;
             gap: 20px;
@@ -33,13 +31,6 @@
             outline: none;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            text-shadow: 0 2px 2px rgba(0,0,0,0.3);
-            text-transform: uppercase;
-        }
-        .power-button:hover {
-            background-color: #e74c3c;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         }
         .back-button {
             display: inline-block;
@@ -49,12 +40,10 @@
             color: #ffffff;
             background-color: #3498db;
             border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
     </style>
 </head>
-<body onload="checkPassword()">
+<body>
 
     <div id="container">
         <button class="power-button" onclick="turnOnPC()">ON</button>
@@ -62,26 +51,18 @@
     </div>
 
     <script>
-        let correctPassword = ""; // This will store the correct password after the initial check
-
-        function checkPassword() {
-            let password = prompt("Please enter the password:");
-            
-            // --- SET YOUR PASSWORD HERE for the initial check ---
-            if (password === "YourSecretPassword") {
-                correctPassword = password; // Store the password for later
-                document.getElementById("container").style.display = "flex";
-            } else {
-                alert("Incorrect Password!");
-                document.body.innerHTML = '<h1>Access Denied</h1>';
-            }
-        }
-
         function turnOnPC() {
             // --- PASTE YOUR CODESANDBOX SERVER URL HERE ---
-            const SECURE_SERVER_URL = "https://3rpcsj-3000.csb.app/";
+            const SECURE_SERVER_URL = "https://YOUR_CODESANDBOX_SERVER_URL/trigger-pc";
+            
+            const enteredPassword = prompt("Please enter the password:");
 
-            const data = { "password": correctPassword };
+            // If the user cancels the prompt, stop the function.
+            if (enteredPassword === null) {
+                return;
+            }
+
+            const data = { "password": enteredPassword };
 
             fetch(SECURE_SERVER_URL, {
                 method: 'POST',
@@ -89,8 +70,11 @@
                 body: JSON.stringify(data)
             })
             .then(response => {
+                if (response.status === 401) {
+                    throw new Error('Incorrect Password!');
+                }
                 if (!response.ok) {
-                    throw new Error('Server rejected the request! Check password or server logs.');
+                    throw new Error('Server error. Check server logs.');
                 }
                 return response.json();
             })
@@ -100,7 +84,7 @@
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('An error occurred while sending the signal.');
+                alert(error.message);
             });
         }
     </script>
