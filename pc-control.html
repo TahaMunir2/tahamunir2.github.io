@@ -10,24 +10,24 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column; /* Allows content to stack vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensures it takes full viewport height */
+            min-height: 100vh;
             color: white;
         }
         #container {
-            display: none; /* Hidden by default until password is correct */
-            flex-direction: column; /* Stack buttons vertically */
+            display: none;
+            flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between buttons */
+            gap: 20px;
         }
         .power-button {
             font-size: 2.5rem;
             padding: 40px 80px;
             border-radius: 50%;
-            border: 5px solid #e74c3c; /* Red border */
-            background-color: #c0392b; /* Darker red */
+            border: 5px solid #e74c3c;
+            background-color: #c0392b;
             color: white;
             cursor: pointer;
             outline: none;
@@ -37,41 +37,20 @@
             text-transform: uppercase;
         }
         .power-button:hover {
-            background-color: #e74c3c; /* Lighter red on hover */
+            background-color: #e74c3c;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         }
-        .power-button:active {
-            transform: scale(0.95);
-            background-color: #a52d21; /* Even darker red when pressed */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Back to Home Button Style */
         .back-button {
             display: inline-block;
             padding: 10px 20px;
             font-size: 1em;
-            font-weight: bold;
-            text-align: center;
             text-decoration: none;
             color: #ffffff;
-            background-color: #3498db; /* Blue button */
-            border: none;
+            background-color: #3498db;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            margin-top: 20px; /* Space above this button */
-        }
-        .back-button:hover {
-            background-color: #2980b9; /* Darker blue on hover */
-            transform: translateY(-1px);
-        }
-        .back-button:active {
-            transform: scale(0.98);
-            background-color: #21618c;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -83,58 +62,45 @@
     </div>
 
     <script>
-        // --- Attempt Counter ---
-        let attempts = 0;
-        const maxAttempts = 5;
+        let correctPassword = ""; // This will store the correct password after the initial check
 
         function checkPassword() {
-            // Check if the user clicked "Cancel"
-            const password = prompt(`Please enter the password (${maxAttempts - attempts} attempts remaining):`, "");
-            if (password === null) {
-                document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Access Canceled</h1>';
-                return; // Stop the script
-            }
-
-            // --- SET YOUR PASSWORD HERE ---
+            let password = prompt("Please enter the password:");
+            
+            // --- SET YOUR PASSWORD HERE for the initial check ---
             if (password === "YourSecretPassword") {
+                correctPassword = password; // Store the password for later
                 document.getElementById("container").style.display = "flex";
             } else {
-                attempts++;
-                if (attempts >= maxAttempts) {
-                    alert("Too many failed attempts. Access is locked.");
-                    document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Access Locked</h1>';
-                } else {
-                    alert(`Incorrect Password! You have ${maxAttempts - attempts} attempts remaining.`);
-                    checkPassword(); // Prompt again
-                }
+                alert("Incorrect Password!");
+                document.body.innerHTML = '<h1>Access Denied</h1>';
             }
         }
 
         function turnOnPC() {
-            // --- Replace with your Adafruit IO details ---
-            const AIO_USERNAME = "YOUR_AIO_USERNAME";
-            const AIO_KEY = "YOUR_AIO_KEY";
-            const FEED_NAME = "pc-power";
+            // --- PASTE YOUR CODESANDBOX SERVER URL HERE ---
+            const SECURE_SERVER_URL = "https://3rpcsj-3000.csb.app/";
 
-            const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`;
-            const data = { "value": "ON" };
+            const data = { "password": correctPassword };
 
-            fetch(url, {
+            fetch(SECURE_SERVER_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-AIO-Key': AIO_KEY
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Server rejected the request! Check password or server logs.');
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('Success:', data);
-                alert('Power signal sent!');
+                alert('Power signal sent successfully!');
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('Error sending signal.');
+                alert('An error occurred while sending the signal.');
             });
         }
     </script>
