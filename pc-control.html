@@ -55,18 +55,31 @@
 <pre id="out">Ready.</pre>
 
 <script>
+  console.log("✅ Script loaded");
+
   document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "https://portfolio-backend-e7kh.onrender.com/"; // no trailing slash is fine
+    const BASE_URL = "https://portfolio-backend-e7kh.onrender.com/"; 
     const btn = document.querySelector("#container .power-button");
     const out = document.getElementById("out");
 
-    // Remove inline onclick from the HTML button (we handle click here)
+    console.log("Button found:", btn);
+
+    if (!btn) {
+      out.textContent = "❌ No button found";
+      return;
+    }
+
     btn.addEventListener("click", async () => {
+      console.log("🔘 Button clicked");
       const pw = prompt("Enter password:");
-      if (!pw) return;
+      console.log("Password entered:", pw);
+
+      if (!pw) {
+        out.textContent = "⚠️ No password entered.";
+        return;
+      }
 
       try {
-        // 1) Login first — sets HttpOnly cookie if password is correct
         const res = await fetch(`${BASE_URL}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -74,30 +87,15 @@
           body: JSON.stringify({ password: pw }),
         });
 
-       if (res.ok) {
-          console.log("✅ Password correct, login success.");
-          out.textContent = "✅ Password correct, logged in.";
+        if (res.ok) {
+          console.log("✅ Correct password");
+          out.textContent = "✅ Correct password";
         } else {
-          console.log("❌ Wrong password. Status:", res.status);
-          out.textContent = "❌ Wrong password.";
+          console.log("❌ Wrong password, status:", res.status);
+          out.textContent = "❌ Wrong password";
         }
-
-        out.textContent = "✅ Logged in. Sending power signal...";
-
-        // 2) Send the power signal via your backend (RECOMMENDED)
-        // Create a protected /power endpoint on your Express server that uses the server-side AIO key.
-        const power = await fetch(`${BASE_URL}/power`, {
-          method: "POST",
-          credentials: "include"
-        });
-
-        if (!power.ok) {
-          out.textContent = `Power error: ${power.status} ${power.statusText}\n` + (await power.text());
-          return;
-        }
-
-        out.textContent = "⚡ Power signal sent!";
       } catch (err) {
+        console.error("Network error:", err);
         out.textContent = "❌ Network error: " + err.message;
       }
     });
