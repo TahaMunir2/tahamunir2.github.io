@@ -9,15 +9,14 @@
             background-color: #2c3e50;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
+            color: white;
+        }
+        #container {
+            display: none; /* Hidden by default */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-        #container {
-            display: flex; /* The container is now always visible */
-            flex-direction: column;
-            align-items: center;
             gap: 20px;
         }
         .power-button {
@@ -31,6 +30,10 @@
             outline: none;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+        }
+        .power-button:active {
+            transform: scale(0.95);
         }
         .back-button {
             display: inline-block;
@@ -43,7 +46,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="checkPassword()">
 
     <div id="container">
         <button class="power-button" onclick="turnOnPC()">ON</button>
@@ -51,40 +54,54 @@
     </div>
 
     <script>
-        function turnOnPC() {
-            // --- PASTE YOUR CODESANDBOX SERVER URL HERE ---
-            const SECURE_SERVER_URL = "https://3rpcsj-3000.csb.app/power/";
+        let attempts = 0;
+        const maxAttempts = 5;
+
+        function checkPassword() {
+            const password = prompt(`Please enter the password (${maxAttempts - attempts} attempts remaining):`);
             
-            const enteredPassword = prompt("Please enter the password here:");
-
-            // If the user cancels the prompt, stop the function.
-            if (enteredPassword === null) {
-                return;
+            // --- SET YOUR PASSWORD HERE ---
+            if (password === "YourSecretPassword") {
+                document.getElementById("container").style.display = "flex";
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    alert("Too many failed attempts. Access locked.");
+                    document.body.innerHTML = '<h1>Access Locked</h1>';
+                } else {
+                    checkPassword();
+                }
             }
+        }
 
-            const data = { "password": enteredPassword };
+        function turnOnPC() {
+            // --- Replace with your Adafruit IO details ---
+            const AIO_USERNAME = "tahamun";
+            const AIO_KEY = "YOUR_AIO_KEY";
+            const FEED_NAME = "pc-power";
 
-            fetch(SECURE_SERVER_URL, {
+            const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`;
+            const data = { "value": "ON" };
+
+            fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-AIO-Key': AIO_KEY
+                },
                 body: JSON.stringify(data)
             })
             .then(response => {
-                if (response.status === 401) {
-                    throw new Error('Incorrect Password!');
-                }
-                if (!response.ok) {
-                    throw new Error('Server error. Check server logs.');
-                }
+                if (!response.ok) { throw new Error('Failed to send signal.'); }
                 return response.json();
             })
             .then(data => {
                 console.log('Success:', data);
-                alert('Power signal sent successfully!');
+                alert('Power signal sent!');
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert(error.message);
+                alert('Error sending signal.');
             });
         }
     </script>
