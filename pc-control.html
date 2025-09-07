@@ -47,65 +47,58 @@
     </style>
 </head>
 <body>
+<div id="container" style="display:flex">
+  <button class="power-button">ON</button>
+  <a href="index.html" class="back-button">Back to Home</a>
+</div>
 
-    <div id="container">
-        <button class="power-button" onclick="turnOnPC()">ON</button>
-        <a href="index.html" class="back-button">Back to Home</a>
-    </div>
+<pre id="out">Ready.</pre>
 
-    <script>
-        let attempts = 0;
-        const maxAttempts = 5;
-        const BASE_URL = "https://portfolio-backend-e7kh.onrender.com/"
-        
-        document.querySelector("#container .power-button").addEventListener("click", async () => {
-        const pw = prompt("Enter password:");
-        if (!pw) return;
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const BASE_URL = "https://portfolio-backend-e7kh.onrender.com/"; // no trailing slash is fine
+    const btn = document.querySelector("#container .power-button");
+    const out = document.getElementById("out");
 
-        try {
-        const res = await fetch("${BASE_URL}/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include", // include cookies
-            body: JSON.stringify({ password: pw }),
+    // Remove inline onclick from the HTML button (we handle click here)
+    btn.addEventListener("click", async () => {
+      const pw = prompt("Enter password:");
+      if (!pw) return;
+
+      try {
+        // 1) Login first — sets HttpOnly cookie if password is correct
+        const res = await fetch(`${BASE_URL}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ password: pw }),
         });
 
-        out.textContent = "${res.status} ${res.statusText}\n" + (await res.text());
-        } catch (err) {
+        if (!res.ok) {
+          out.textContent = `Login failed: ${res.status} ${res.statusText}\n` + (await res.text());
+          return;
+        }
+
+        out.textContent = "✅ Logged in. Sending power signal...";
+
+        // 2) Send the power signal via your backend (RECOMMENDED)
+        // Create a protected /power endpoint on your Express server that uses the server-side AIO key.
+        const power = await fetch(`${BASE_URL}/power`, {
+          method: "POST",
+          credentials: "include"
+        });
+
+        if (!power.ok) {
+          out.textContent = `Power error: ${power.status} ${power.statusText}\n` + (await power.text());
+          return;
+        }
+
+        out.textContent = "⚡ Power signal sent!";
+      } catch (err) {
         out.textContent = "❌ Network error: " + err.message;
-        }
+      }
     });
-
-        function turnOnPC() {
-            // --- Replace with your Adafruit IO details ---
-            const AIO_USERNAME = "tahamun";
-            const AIO_KEY = "YOUR_AIO_KEY";
-            const FEED_NAME = "pc-power";
-
-            const url = `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`;
-            const data = { "value": "ON" };
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-AIO-Key': AIO_KEY
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) { throw new Error('Failed to send signal.'); }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Success:', data);
-                alert('Power signal sent!');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Error sending signal.');
-            });
-        }
-    </script>
+  });
+</script>
 </body>
 </html>
