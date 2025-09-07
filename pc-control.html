@@ -46,7 +46,7 @@
         }
     </style>
 </head>
-<body onload="checkPassword()">
+<body>
 
     <div id="container">
         <button class="power-button" onclick="turnOnPC()">ON</button>
@@ -56,23 +56,25 @@
     <script>
         let attempts = 0;
         const maxAttempts = 5;
+        const BASE_URL = "https://portfolio-backend-e7kh.onrender.com/"
+        
+        document.querySelector(".power-button").addEventListener("click", async () => {
+        const pw = prompt("Enter password:");
+        if (!pw) return;
 
-        function checkPassword() {
-            const password = prompt(`Please enter the password (${maxAttempts - attempts} attempts remaining):`);
-            
-            // --- SET YOUR PASSWORD HERE ---
-            if (password === "YourSecretPassword") {
-                document.getElementById("container").style.display = "flex";
-            } else {
-                attempts++;
-                if (attempts >= maxAttempts) {
-                    alert("Too many failed attempts. Access locked.");
-                    document.body.innerHTML = '<h1>Access Locked</h1>';
-                } else {
-                    checkPassword();
-                }
-            }
+        try {
+        const res = await fetch("${BASE_URL}/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include", // include cookies
+            body: JSON.stringify({ password: pw }),
+        });
+
+        out.textContent = "${res.status} ${res.statusText}\n" + (await res.text());
+        } catch (err) {
+        out.textContent = "❌ Network error: " + err.message;
         }
+    });
 
         function turnOnPC() {
             // --- Replace with your Adafruit IO details ---
