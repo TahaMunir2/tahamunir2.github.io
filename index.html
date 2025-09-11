@@ -89,24 +89,7 @@
             </div>
         </section>
         
-        <section class="project hidden">
-             <div class="project-media">
-                <img src="images/clock.jpeg" alt="">
-            </div>
-            <div class="project-description">
-                <h2>Temperature and Humidity Sensor</h2>
-                <p>As part of an ongoing project aiming to incorporate several sensors for an IoT system, a home assistant integrated sensor that monitors both temperature and humidity and displays it on an OLED Screen, with the option to view and track the data online using home assistant </p>
-                <p>Hardware:</p>
-                <p>There are 3 pieces of hardware in this circuit as of now, but future sensors are planned to be added. It currently consists of the DHT11 sensor, an ESP32 and a 0.96-inch OLED screen to display temperature readings and is wirelessly connected to a Home Assistant Green, which hosts the server for all the Home Assistant devices in the house.</p>
-                <p>Software:</p>
-                <p>The software for this was written on the ESPHome addon for Home Assistant, and as such programmed in its own stylised way, it takes readings every 5 seconds and displays the data along with the network connectivity (for trouble shooting purposes) on the OLED screen and then sends it back to the home assisstant green server which stores the data for monitoring purposes.</p>
-                <p>Challenges:</p>
-                <p>The way code is written on ESPHome is quite different to Arduino IDE, so that required some learning, although it is quite simpler than Arduino IDE once you learn it. I also had to learn how to set up a virtual machine for this project to run it locally first, before setting up the Home Assistant green.</p>
-                <p>Potential Future Improvements:</p>
-                <p>I am currently helping work on a hydroponic system which could include: the sensor described above, an Ultrasonic Water meter, an air quality sensor, a light meter, a water quality sensor and a water pH meter. The project is still in its beginning stage, some of the sensors mentioned have been ordered and some might be removed however the plan is to have as much data as possible being recorded around the house and to manage it all on a home assistant, 3D models can also be printed for all these sensors however since a lot of them are not meant to be seen they can simply be taped to the back of something. </p>
-            </div>
-        </section>
-        
+      
                 <section class="project hidden layout-swapped">
              <div class="project-media">
                 <img src="images/mouse.jpeg" alt="">
@@ -122,6 +105,25 @@
                 <p>The NRF52840 MCU I ordered is faulty, and no matter what I try, I am not able to upload firmware onto it. I believe this might be my fault as I had an issue with the solder when soldering the header pins and solder went everywhere it shouldn't... </p>
             </div>
         </section>
+
+          <section class="project hidden">
+             <div class="project-media">
+                <img src="images/oled_screen.jpg" alt="">
+            </div>
+            <div class="project-description">
+                <h2>Temperature and Humidity Sensor</h2>
+                <p>As part of an ongoing project aiming to incorporate several sensors for an IoT system, a home assistant integrated sensor that monitors both temperature and humidity and displays it on an OLED Screen, with the option to view and track the data online using home assistant </p>
+                <p>Hardware:</p>
+                <p>There are 3 pieces of hardware in this circuit as of now, but future sensors are planned to be added. It currently consists of the DHT11 sensor, an ESP32 and a 0.96-inch OLED screen to display temperature readings and is wirelessly connected to a Home Assistant Green, which hosts the server for all the Home Assistant devices in the house.</p>
+                <p>Software:</p>
+                <p>The software for this was written on the ESPHome addon for Home Assistant, and as such programmed in its own stylised way, it takes readings every 5 seconds and displays the data along with the network connectivity (for trouble shooting purposes) on the OLED screen and then sends it back to the home assisstant green server which stores the data for monitoring purposes.</p>
+                <p>Challenges:</p>
+                <p>The way code is written on ESPHome is quite different to Arduino IDE, so that required some learning, although it is quite simpler than Arduino IDE once you learn it. I also had to learn how to set up a virtual machine for this project to run it locally first, before setting up the Home Assistant green.</p>
+                <p>Potential Future Improvements:</p>
+                <p>I am currently helping work on a hydroponic system which could include: the sensor described above, an Ultrasonic Water meter, an air quality sensor, a light meter, a water quality sensor and a water pH meter. The project is still in its beginning stage, some of the sensors mentioned have been ordered and some might be removed however the plan is to have as much data as possible being recorded around the house and to manage it all on a home assistant, 3D models can also be printed for all these sensors however since a lot of them are not meant to be seen they can simply be taped to the back of something. </p>
+            </div>
+        </section>
+        
         
     </main>
     
