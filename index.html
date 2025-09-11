@@ -58,13 +58,15 @@
             </div>
             <div class="project-description">
                 <h2>Project Two: Audio Mixer</h2>
-                <p>Windows 10 made it (relatively) easy to access the sound mixer but its just too many clicks in windows 11 and to be honest not that satisfying so why not make and 3d print your own?</p>
+                <p>Windows 10 made it (relatively) easy to access the sound mixer, but it's just too many clicks in Windows 11, and to be hones,t not that satisfying so why not make and 3d print your own?</p>
                 <p>Hardware: </p>
                 <p>The hardware for this project was quite simple to work out as this is made using the open source Deej project and I was able to see what different people used, I found this particular implementation that caught my eye however, it required ordering potentiometers from a chinese website that had a very shady english translation, however after a long month of waiting I was able to get 5 10k Ohm slider potentiometers as I desired. After that, all I needed was an Arduino Nano and the hardware was sorted</p>
                 <p>Software:</p>
                 <p>The software required configuring the open source Deej application for my specific use case. I programmed each slider to respond to a certain application and adjusted it to the COM port</p>
                 <p>Challenges:</p>
-                <p>This was my first time working with stranded wire as I usually work solid core wire, so I had to learn how to tin the wire, and braid multiple wires together which I had to do for the power wires. I also learnt how to work with heat shrinks and brass hot melts, which included a 3D print prototype that had to unfortunately be sacrified due to a soldering iron hole. </p>
+                <p>This was my first time working with stranded wire, as I usually work solid core wire, so I had to learn how to tin the wire and braid multiple wires together which I had to do for the power wires. I also learnt how to work with heat shrinks and brass hot melts, which included a 3D print prototype that had to unfortunately be sacrified due to a soldering iron hole. </p>
+                <p>Potential Future Changes</p>
+                <p>This is one of the projects I have used most since I got it and I have to say there is nothing I would really change for it, perhaps adding small icons at the bottom of each slider with the application logo would be useful for someone trying to use my computer.</p>
             </div>
 
         </section>
@@ -75,7 +77,15 @@
             </div>
             <div class="project-description">
                 <h2>Project Three: Hololgram-like Clock</h2>
-                <p>A real time holographic-like projection onto plexiglass clock with a custom made 3D printed Chassis and buttons to adjust the settings</p>
+                <p>A real-time holographic-like projection onto a plexiglass clock with a custom-made 3D printed Chassis and buttons to adjust the settings</p>
+                <p>Hardware:</p>
+                <p>This circuit uses a MAX7219 Dot Matrix Module, an Arduino Nano, a DS3231 precision RTC module and 2 momentary push buttons. The parts list for this project was loosely inspired by a project I saw online however, the RTC module and buttons are different</p>
+                <p>Software:</p>
+                <p>The software was mostly written by the same creator; however, I found that it simply didn't work with my configuration, so I had to rewrite a lot of it. The RTC I used was more power efficient then the one they listed however it was not compatible with a lot of the code so I had to go in and rewrite a lot of it, the code also had issues with the power draw being too high on startup and the Matrix shutting down so I had to tailor in delays at key points to allow for the startup to be perfect everytime. The software itself has multiple features such as a mode that shows the date, the ability to write the time in words and to add seconds onto the display and the buttons can be used to adjust the time and cycle through settings.</p>
+                <p>Challenges:</p>
+                <p>Though I did have help in the hardware and software department, the chassis needed to be completely designed by me as the creator provided no clues, Using online dimensions for the matrix I picked a piece of Plexi glass that best complimented its dimensions, I also designed a holder for the matrix module that had studs at the bottom that slotted into the grooves inside the case to make its distance adjustable while staying parallel to change the size of the text on the screen. I also added space on the backside of the holder for the Arduino and RTC module to be hidden away, and had to generally use estimation work to make sure all the components tied together nicely.</p>
+                <p>Potential Future Improvements:</p>
+                <p>This is another project that I use all the time, it particularly has that hologram effect if a dark surface is behind i,t and it is placed in such a way that you have to look up to see it (I plan on placing it on my black background shelves in uni). I could potentially add a dark backboard behind it, but while 3D modelling, I couldn't find a way to do it without it appearing ugly, so I relied on placing it in such a spot that the background is darker. While working on this I was gifted a giant 64x16 LED Matrix that is 50cm x 12.5cm big, I am thinking of using the skills I learnt from this to create a giant notification board; however, I need a much larger power source for it, so I am unable to work on it right now.</p>
             </div>
         </section>
 
@@ -85,7 +95,13 @@
             </div>
             <div class="project-description">
                 <h2>Project Four: Custom Wireless Mouse</h2>
-                <p>Have you ever wondered what it's like to make a high performance wireless mouse? Spoiler Alert! It's hell</p>
+                <p>The Mission Objective for this project is to make a 3D printed, wireless mouse with a high-end PMW3360 sensor and have a 2000 mAH battery for long battery life. I have also 3D printed a very low-weight and easily accessible case, however, the idea is that the case is swappable</p>
+                <p>Hardware:</p>
+                <p>It would use a PMW3360 breakoutboard, an NRF52840 MCU which has good charging and Bluetooth capabilities, a scroll wheel encoded salvaged from a broken mouse, a 2000 mAH lithium ion battery and mouse micro switches</p>
+                <p>Software:</p>
+                <p>I plan on using Zephyr OS or ZMK to configure the mouse sensor; they are not very beginner-friendly friendly so this will be a huge undertaking, especially because Pixart (the maker of the sensor) really don't like community-made projects with their sensors for some reason and therefore have not made it accessible at all.</p>
+                <p>Roadblock:</p>
+                <p>The NRF52840 MCU I ordered is faulty, and no matter what I try, I am not able to upload firmware onto it. I believe this might be my fault as I had an issue with the solder when soldering the header pins and solder went everywhere it shouldn't... </p>
             </div>
         </section>
         
