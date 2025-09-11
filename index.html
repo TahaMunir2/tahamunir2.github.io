@@ -24,7 +24,7 @@
     }
     </style>
 
-<a href="pc-control.html" class="control-link-button">PC Power Control</a>
+<a href="pc-control.html" class="control-link-button">PC Power Switch</a>
     <header class="hero">
         <h1>Taha Munir's Project Portfolio</h1>
         <p>Scroll down to explore my work.</p>
@@ -40,7 +40,15 @@
             </div>
             <div class="project-description">
                 <h2>Project One: J.A.R.V.I.S.</h2>
-                <p>In a world of so many options for chatbots why are physical voice assistants all still so terrible, even for said chatbots they are often locked behind paywalls, so why not combine some of google clouds free API access with a physical body along with some programming to make it personalised so you can have your very own J.A.R.V.I.S. </p>
+                <p>In a world of so many options for chatbots, why are physical voice assistants still so limited? Even for the famous LLMs, their voice features are often locked behind paywalls, so why not combine some of Google Cloud's (limited) free API access with a physical body, along with some programming, so you can have your very own J.A.R.V.I.S. </p>
+                <p> Hardware: </p>
+                <p> The Hardware consists of an ESP32, a simple tactile switch, a 4 Ohm 3 Watt speaker, SPH0645 I2S digital Microphone and a MAX98357A Audio Amplifier Module. </p>
+                <p> Software: </p>
+                <p> This project takes advantage of Google Cloud's API, which have very generous free monthly limits, with the biggest constraint being 60 minutes of speech to text a month with the TTS and Gemini API's being virtually infinite for our use case. There are 2 scripts for this project, the first is a Python script that simply is the middleman connecting all the API's with the ESP32's inputs and outputs. The main file is a .ino file, this file utilises the I2S protocol for the audio and interacts with both the speaker and microphone under the same pins, it waits for a button press to start recording and then allows for 4 seconds of speech to be sent to the STT API, the ouput of that is then sent to the Gemini API and then to a TTS API which is then played out of the speaker.</p>
+                <p> Challenges: </p>
+                <p> A particular challenge was the limited RAM of the ESP32, I had to limit the recording to 4 seconds as that by itself used 1/4 of its ram and anything above that failed to work, I also had to add delays on startup and before sending the data over to the API or else the ESP32 would get overwhelmed and parts of the code would get skipped. </p>
+                <p> Potential Future Changes: </p>
+                <p> The hardware for this project is almost perfect, the microphone and API have been faultless in their STT capabilities, and the speaker provides a clean output, however the main bottleneck of the MCU, in the future I could use something with more RAM, or something I found online called PSRAM (my ESP32 unfortunately didn't have it). An enclosure would also tie together the project; however, I haven't committed to anything yet, as I am still unsure about my current MCU.</p>
             </div>
         </section>
 
@@ -51,6 +59,12 @@
             <div class="project-description">
                 <h2>Project Two: Audio Mixer</h2>
                 <p>Windows 10 made it (relatively) easy to access the sound mixer but its just too many clicks in windows 11 and to be honest not that satisfying so why not make and 3d print your own?</p>
+                <p>Hardware: </p>
+                <p>The hardware for this project was quite simple to work out as this is made using the open source Deej project and I was able to see what different people used, I found this particular implementation that caught my eye however, it required ordering potentiometers from a chinese website that had a very shady english translation, however after a long month of waiting I was able to get 5 10k Ohm slider potentiometers as I desired. After that, all I needed was an Arduino Nano and the hardware was sorted</p>
+                <p>Software:</p>
+                <p>The software required configuring the open source Deej application for my specific use case. I programmed each slider to respond to a certain application and adjusted it to the COM port</p>
+                <p>Challenges:</p>
+                <p>This was my first time working with stranded wire as I usually work solid core wire, so I had to learn how to tin the wire, and braid multiple wires together which I had to do for the power wires. I also learnt how to work with heat shrinks and brass hot melts, which included a 3D print prototype that had to unfortunately be sacrified due to a soldering iron hole. </p>
             </div>
 
         </section>
