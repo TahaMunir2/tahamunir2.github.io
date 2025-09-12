@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    const hiddenElements = document.querySelectorAll('.project.hidden');
-
+const hiddenElements = document.querySelectorAll('.project.hidden, .section-heading.hidden');
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
