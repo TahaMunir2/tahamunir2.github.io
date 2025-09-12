@@ -38,6 +38,13 @@ body {
     animation: bounce 2s infinite;
 }
 
+<style>
+  .top-image {
+    margin-bottom: 20px; /* Adds 20 pixels of space below the image */
+    display: block; /* Important for consistent spacing */
+  }
+</style>
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-30px); }
