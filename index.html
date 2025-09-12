@@ -90,23 +90,27 @@
         </section>
         
       
-                <section class="project hidden layout-swapped">
+ 
+        <section class="project hidden layout-swapped">
              <div class="project-media">
-                <img src="images/mouse.jpeg" alt="">
+                <img src="" alt="">
             </div>
             <div class="project-description">
-                <h2>Custom Wireless Mouse</h2>
-                <p>The Mission Objective for this project is to make a 3D printed, wireless mouse with a high-end PMW3360 sensor and have a 2000 mAH battery for long battery life. I have also 3D printed a very low-weight and easily accessible case; however, the idea is that the case is swappable</p>
+                <h2>Remote Start Finger</h2>
+                <p>I really like my M1 MacBook Air, it has the best battery life I have ever seen on a laptop and is completely silent as it is passively cooled; however, due to being an engineering student, I often need a Windows PC to run many software programs I use. I am fortunate enough to have a PC at home that I can remote into, but sometimes forget to boot it up before I leave for uni so why not attach a simple attachment to a servo motor to press the on button for me?</p>
                 <p>Hardware:</p>
-                <p>It would use a PMW3360 breakoutboard, an NRF52840 MCU which has good charging and Bluetooth capabilities, a scroll wheel encoded salvaged from a broken mouse, a 2000 mAH lithium ion battery and mouse micro switches</p>
+                <p>The hardware consists of only an SG90 servo motor with a custom 3D printed 90-degree attachment and an ESP32.</p>
                 <p>Software:</p>
-                <p>I plan on using Zephyr OS or ZMK to configure the mouse sensor; they are not very beginner-friendly friendly so this will be a huge undertaking, especially because Pixart (the maker of the sensor) really don't like community-made projects with their sensors for some reason and therefore has not made it accessible at all.</p>
-                <p>Roadblock:</p>
-                <p>The NRF52840 MCU I ordered is faulty, and no matter what I try, I am not able to upload firmware onto it. I believe this might be my fault as I had an issue with the solder when soldering the header pins and solder went everywhere it shouldn't... </p>
+                <p>I use a website to press on a "Power Button" that sends a signal to the Adafruit IO API to send a signal to my ESP32 to turn on the motor to turn on/off my PC. This required Arduino IDE and learning about API's and web development, as it was a multi-tool approach.</p>
+                <p>Challenges:</p>
+                <p>I coded a simple website that just sends a signal to my API and then turns on my pc with a password required to access the button however as I was hosting it on github pages I realised without a backend my API key and password would be exposed to bad actors who could take advantage so I had to learn how to create a backend to protect my API key and password to add security so only I could turn my computer on and off. </p>
+               <p>Potential Future Improvements:</p>
+               <p>The task itself is quite simple, so I don't see much room for improvement; however, I have had the thought of 3D printing an actual finger instead of my attachment to add to the aesthetic. However, I currently do not have access to a 3D printer, so I shall have to wait. </p>
             </div>
         </section>
 
-          <section class="project hidden">
+        
+        <section class="project hidden">
              <div class="project-media">
                 <img src="images/oled_screen.jpg" alt="">
             </div>
@@ -123,22 +127,20 @@
                 <p>I am currently helping work on a hydroponic system which could include: the sensor described above, an Ultrasonic Water meter, an air quality sensor, a light meter, a water quality sensor and a water pH meter. The project is still in its beginning stage, some of the sensors mentioned have been ordered and some might be removed however the plan is to have as much data as possible being recorded around the house and to manage it all on a home assistant, 3D models can also be printed for all these sensors however since a lot of them are not meant to be seen they can simply be taped to the back of something. </p>
             </div>
         </section>
-
+      
         <section class="project hidden layout-swapped">
              <div class="project-media">
-                <img src="" alt="">
+                <img src="images/mouse.jpeg" alt="">
             </div>
             <div class="project-description">
-                <h2>Remote Start Finger</h2>
-                <p>I really like my M1 MacBook Air, it has the best battery life I have ever seen on a laptop and is completely silent as it is passively cooled; however, due to being an engineering student, I often need a Windows PC to run many software programs I use. I am fortunate enough to have a PC at home that I can remote into, but sometimes forget to boot it up before I leave for uni so why not attach a simple attachment to a servo motor to press the on button for me?</p>
+                <h2>Custom Wireless Mouse</h2>
+                <p>The Mission Objective for this project is to make a 3D printed, wireless mouse with a high-end PMW3360 sensor and have a 2000 mAH battery for long battery life. I have also 3D printed a very low-weight and easily accessible case; however, the idea is that the case is swappable</p>
                 <p>Hardware:</p>
-                <p>The hardware consists of only an SG90 servo motor with a custom 3D printed 90-degree attachment and an ESP32.</p>
+                <p>It would use a PMW3360 breakoutboard, an NRF52840 MCU which has good charging and Bluetooth capabilities, a scroll wheel encoded salvaged from a broken mouse, a 2000 mAH lithium ion battery and mouse micro switches</p>
                 <p>Software:</p>
-                <p>I use a website to press on a "Power Button" that sends a signal to the Adafruit IO API to send a signal to my ESP32 to turn on the motor to turn on/off my PC. This required Arduino IDE and learning about API's and web development, as it was a multi-tool approach.</p>
-                <p>Challenges:</p>
-                <p>I coded a simple website that just sends a signal to my API and then turns on my pc with a password required to access the button however as I was hosting it on github pages I realised without a backend my API key and password would be exposed to bad actors who could take advantage so I had to learn how to create a backend to protect my API key and password to add security so only I could turn my computer on and off. </p>
-               <p>Potential Future Improvements:</p>
-               <p>The task itself is quite simple, so I don't see much room for improvement; however, I have had the thought of 3D printing an actual finger instead of my attachment to add to the aesthetic. However, I currently do not have access to a 3D printer, so I shall have to wait. </p>
+                <p>I plan on using Zephyr OS or ZMK to configure the mouse sensor; they are not very beginner-friendly friendly so this will be a huge undertaking, especially because Pixart (the maker of the sensor) really don't like community-made projects with their sensors for some reason and therefore has not made it accessible at all.</p>
+                <p>Roadblock:</p>
+                <p>The NRF52840 MCU I ordered is faulty, and no matter what I try, I am not able to upload firmware onto it. I believe this might be my fault as I had an issue with the solder when soldering the header pins and solder went everywhere it shouldn't... </p>
             </div>
         </section>
 
