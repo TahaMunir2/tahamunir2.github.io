@@ -98,6 +98,26 @@
         console.error("Network error:", err);
         out.textContent = "❌ Network error: " + err.message;
       }
+
+
+  // ... inside your btn.addEventListener("click", async () => { ... })
+  // after the login fetch call...
+
+  const powerOnRes = await fetch(`${BASE_URL}/power-on`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (powerOnRes.ok) {
+    const result = await powerOnRes.json();
+    out.textContent = `✅ ${result.message}`;
+  } else {
+    // This part is new:
+    const errorResult = await powerOnRes.json();
+    console.error("Server error:", errorResult);
+    out.textContent = `❌ ${errorResult.error}`;
+  }
+
     });
   });
 </script>
