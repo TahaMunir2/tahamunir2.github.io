@@ -143,6 +143,24 @@
             </div>
         </section>
 
+        <section class="project hidden layout-swapped">
+             <div class="project-media">
+                <img src="" alt="">
+            </div>
+            <div class="project-description">
+                <h2>Human Tracking Adressable LED's</h2>
+                <p> RGB LED lights have always been something I have messed around with. I have seen them online for such a variety of prices, depending on the features. Even though the fundamental hardware is always the same, it just requires something to drive it, beign familiar with working with them through the WLED project, I decided why not attach a human tracking sensor to a LED strip and take advantage to the individually addressable LEDS to make them follow you for a third of the price you would pay for high-end Bluetooth LED strips.</p>
+                <p>Hardware:</p>
+                <p>The hardware consists of an RD-03E body movement ranging module, a WS2812B strip and an ESP32, all positioned towards the entrance of my room to make any person entering feel like the lights are following them inside</p>
+                <p>Software:</p>
+                <p>The code starts by setting parameters that can be adjusted to make each LED light up at adjustable increments. Then it has a constantly running function that takes sensor data to determine how far away the nearest person is and lights up the LEDs according to the defined parameters.</p>
+                <p>Challenges:</p>
+                <p>This is the last project I have done so it was a lot more smooth sailing then the others, however I kept running into an issue where the data I was getting from the sensor was not in the format I was following from a guide I found online on a website so I was getting no response however just by reading the raw data I was quickly able to ammend the issue.</p>
+               <p>Potential Future Improvements:</p>
+               <p>The LED strip at the moment is quite short and only on one side of my room; however, in the future, I think it would be cool to have it on both sides to make it much longer for a more dramatic entrance. I have also considered having RGB lighting effects and using diffusers; however, I like the fact that I can see when each individual LED lights up. </p>
+            </div>
+        </section>
+
         <h2 class="section-heading hidden">Ongoing Projects</h2>
         
         <section class="project hidden layout-swapped">
